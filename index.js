@@ -1,24 +1,24 @@
 const mineflayer = require('mineflayer');
 const express = require('express');
 
-// Web Server để giữ Render online
+// Web Server giữ Render online 24/7
 const app = express();
-app.get('/', (req, res) => res.send('Bot Minecraft 1.20.1 đang treo 24/7 thành công!'));
+app.get('/', (req, res) => res.send('Bot Minecraft 1.20.1 (IP Trực tiếp) đang chạy!'));
 app.listen(3000, () => console.log('Web Server ready!'));
 
-// Cấu hình Bot
+// Cấu hình Bot dùng IP số trực tiếp
 function startBot() {
-    console.log('Đang kết nối tới server monlight.play.hosting:14045...');
+    console.log('Đang kết nối tới IP trực tiếp 62.141.62.27:14045...');
 
     const bot = mineflayer.createBot({
-        host: 'monlight.play.hosting',
-        port: 14045,
+        host: '62.141.62.27', // IP số trực tiếp
+        port: 14045,          // Port chính
         username: 'Bot_Treo_247',
         version: '1.20.1'
     });
 
     bot.on('spawn', () => {
-        console.log('✅ Bot đã vào server 1.20.1 thành công!');
+        console.log('✅ Bot đã vào game bằng IP số thành công!');
 
         // Tự động gõ lệnh /register
         setTimeout(() => {
@@ -36,8 +36,9 @@ function startBot() {
     });
 
     bot.on('error', err => console.log('❌ Lỗi Bot:', err.message));
+
     bot.on('end', () => {
-        console.log('⚠️ Mất kết nối! Đang thử vào lại sau 10 giây...');
+        console.log('⚠️ Mất kết nối! Thử vào lại sau 10 giây...');
         setTimeout(startBot, 10000);
     });
 }
