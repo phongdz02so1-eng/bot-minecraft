@@ -3,7 +3,7 @@ const express = require('express');
 
 // Web Server giữ Render online 24/7
 const app = express();
-app.get('/', (req, res) => res.send('Bot Minecraft 1.20.1 (IP Trực tiếp) đang chạy!'));
+app.get('/', (req, res) => res.send('Bot Minecraft 1.20.1 đang chạy!'));
 app.listen(3000, () => console.log('Web Server ready!'));
 
 // Cấu hình Bot dùng IP số trực tiếp
@@ -11,7 +11,7 @@ function startBot() {
     console.log('Đang kết nối tới IP trực tiếp 62.141.62.27:14045...');
 
     const bot = mineflayer.createBot({
-        host: '62.141.62.27', // IP số trực tiếp
+        host: '62.141.62.27', // IP trực tiếp
         port: 14045,          // Port chính
         username: 'Bot_Treo_247',
         version: '1.20.1'
@@ -20,13 +20,19 @@ function startBot() {
     bot.on('spawn', () => {
         console.log('✅ Bot đã vào game bằng IP số thành công!');
 
-        // Tự động gõ lệnh /register
+        // 1. Tự động gõ /register (dành cho nick mới)
         setTimeout(() => {
             bot.chat('/register phongkaka11 phongkaka11');
             console.log('🔑 Đã gửi lệnh: /register phongkaka11 phongkaka11');
         }, 1500);
 
-        // Nhảy chống AFK mỗi 30s
+        // 2. Tự động gõ /login phongkaka11 (dành cho nick đã đăng ký từ trước)
+        setTimeout(() => {
+            bot.chat('/login phongkaka11');
+            console.log('🔑 Đã gửi lệnh: /login phongkaka11');
+        }, 2500);
+
+        // Tự nhảy chống AFK mỗi 30 giây
         setInterval(() => {
             if (bot && bot.entity) {
                 bot.setControlState('jump', true);
